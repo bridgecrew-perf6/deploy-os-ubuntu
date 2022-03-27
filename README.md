@@ -1,2 +1,1 @@
-# deploy-os-ubuntu
-Ubuntu OS Deploy Configuration
+# Deploy and Configure OS Ubuntu Environment
