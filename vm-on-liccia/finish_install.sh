@@ -39,7 +39,7 @@ if [ -d $MOUNTPOINT ]; then
      case $user in
         "jupyter-jupyadmin")
         usermod -m -d $JUPYHOME/$user $user
-	return $?
+	continue
         ;;
         "ubuntu")
         export OPTHOME=$UBUNHOME
