@@ -62,9 +62,9 @@ if [ -d $MOUNTPOINT ]; then
    rsync -auq /opt/jupyterlab_workdir/ $JUPYHOME/ 2>/dev/null
 
    # tljh optimization
-   # nativeauthenticator.NativeAuthenticator
+   # nati	veauthenticator.NativeAuthenticator
    JUPYCONFIG=/opt/tljh/config/jupyterhub_config.d/jupyterhub_config.py
-   if [[ ! `grep ^c.Spawner.notebook_dir $JUPYCONFIG 2>/dev/null ]]; then
+   if [[ ! `grep ^c.Spawner.notebook_dir $JUPYCONFIG 2>/dev/null` ]]; then
       echo "c.Spawner.notebook_dir='$JUPYHOME'" >> $JUPYCONFIG
    fi
    tljh-config set limits.memory $(head -1 /proc/meminfo | awk '{print $2*0.85"K"}')
@@ -89,10 +89,10 @@ do_format(){
   [ "$ANS" != "y" ] && return 1
   umount $MOUNTPOINT 2>/dev/null
   parted $DEV mklabel gpt && parted $DEV mkpart primary ext4 0% 100% && {
-  parted $DEV print && mkfs.ext4 -F ${DEV}1 || exit 1
+  parted $DEV print && mkfs.ext4 -F ${DEV}1 || return 1
   mkdir -p $MOUNTPOINT 2>/dev/null
   if [ -z "`grep ^$DEV /etc/fstab 2>/dev/null`" ]; then
-     echo '${DEV} $MOUNTPOINT ext4 defaults 0 0' >> /etc/fstab
+     echo "${DEV}1 $MOUNTPOINT ext4 defaults 0 0" >> /etc/fstab
   fi
   }
   mount -a
