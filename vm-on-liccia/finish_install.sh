@@ -38,7 +38,8 @@ if [ -d $MOUNTPOINT ]; then
      echo "-- Moving dirs for [$user]"
      case $user in
         "jupyter-jupyadmin")
-        export OPTHOME="$JUPYHOME/$user"
+        usermod -m -d $JUPYHOME/$user $user
+	return $?
         ;;
         "ubuntu")
         export OPTHOME=$UBUNHOME
